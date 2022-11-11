@@ -29,18 +29,28 @@ export const Navbar = () => {
     null
   );
 
-  const navLinks = () => {
-    return pages.map((page) => (
-      <Link to={page.href} key={page.id} style={{ textDecoration: "none" }}>
-        <Button
-          key={page.id}
-          onClick={handleCloseNavMenu}
-          sx={{ my: 2, color: "white", display: "block" }}
-        >
-          {page.name}
-        </Button>
-      </Link>
-    ));
+  const navLinks = (type: string = "button") => {
+    if (type === "typography") {
+      return pages.map((page) => (
+        <Link to={page.href} key={page.id} style={{ textDecoration: "none" }}>
+          <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+            <Typography textAlign="center">{page.name}</Typography>
+          </MenuItem>
+        </Link>
+      ));
+    } else {
+      return pages.map((page) => (
+        <Link to={page.href} key={page.id} style={{ textDecoration: "none" }}>
+          <Button
+            key={page.id}
+            onClick={handleCloseNavMenu}
+            sx={{ my: 2, color: "white", display: "block" }}
+          >
+            {page.name}
+          </Button>
+        </Link>
+      ));
+    }
   };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -110,11 +120,7 @@ export const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.name}</Typography>
-                </MenuItem>
-              ))}
+              {navLinks("typography")}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />

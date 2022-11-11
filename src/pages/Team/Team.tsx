@@ -1,45 +1,24 @@
-import * as React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
+import React from "react";
+import { Box, Fab } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import { TeamList } from "../../components/TeamList/TeamList";
+import { AddPlayerDialog } from "../../components/AddPlayerDialog/AddPlayerDialog";
 
 export const Team = () => {
   return (
-    <List sx={{ width: "100%" }}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar
-            alt="Jack Black"
-            sx={{
-              backgroundColor: "grey",
-            }}
-            src="/static/images/avatar/1.jpg"
-          >
-            1
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText
-          primary="Aaron Ramsdale"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Goalkeeper
-              </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-    </List>
+    // Write users list
+    // Add new player button + popup
+    // Players have 3 properties - position GK/no (bool), number, name
+    // Add users to global state
+    // Move users to firebase
+    <Box>
+      <TeamList />
+      <AddPlayerDialog />
+      <Box sx={{ "& > :not(style)": { m: 1 } }}>
+        <Fab color="secondary" aria-label="edit">
+          <EditIcon />
+        </Fab>
+      </Box>
+    </Box>
   );
 };
