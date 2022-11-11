@@ -13,12 +13,17 @@ import Switch from "@mui/material/Switch";
 import EditIcon from "@mui/icons-material/Edit";
 import { createStore } from "redux";
 
-interface IPlayerToAdd {
+export interface IPlayerToAdd {
   id: number;
   name: string;
   number: number;
   isGoalkeeper: boolean;
 }
+
+// Add new player button + popup -done
+// Players have 3 properties - position GK/no (bool), number, name - done
+// Add users to global state - in progress
+// Move users to firebase
 
 export const AddPlayerDialog = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -36,6 +41,7 @@ export const AddPlayerDialog = () => {
   const [id] = useState<number>(playerToAdd.length + 1);
 
   const ADD_PLAYER = "ADD_PLAYER";
+
   const addNewPlayer = () => {
     return {
       type: ADD_PLAYER,
@@ -65,9 +71,13 @@ export const AddPlayerDialog = () => {
   const store = createStore(reducer);
   console.log("Initial state", store.getState());
 
-  store.subscribe(() => console.log("state", store.getState()));
+  const unsubscribe = store.subscribe(() =>
+    console.log("state", store.getState())
+  );
 
   store.dispatch(addNewPlayer());
+
+  unsubscribe();
 
   const handleClickOpen = () => {
     setOpen(true);

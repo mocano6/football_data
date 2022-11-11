@@ -5,11 +5,6 @@ import { AddPlayerDialog } from "../../components/AddPlayerDialog/AddPlayerDialo
 
 export const Team = () => {
   return (
-    // Write users list
-    // Add new player button + popup
-    // Players have 3 properties - position GK/no (bool), number, name
-    // Add users to global state
-    // Move users to firebase
     <Box>
       <TeamList />
       <AddPlayerDialog />
