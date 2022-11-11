@@ -1,6 +1,13 @@
 import React from "react";
-import { Navbar } from "../../components/Navbar/Navbar";
 
 export const Home = () => {
-  return <div>home</div>;
+  return (
+    <div>
+      <h1>Welcome</h1>
+      <h2>
+        This is the app where you can check and fill crucial stats for your
+        players
+      </h2>
+    </div>
+  );
 };

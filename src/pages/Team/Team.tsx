@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Fab } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import { Box } from "@mui/material";
 import { TeamList } from "../../components/TeamList/TeamList";
 import { AddPlayerDialog } from "../../components/AddPlayerDialog/AddPlayerDialog";
 
@@ -14,11 +13,6 @@ export const Team = () => {
     <Box>
       <TeamList />
       <AddPlayerDialog />
-      <Box sx={{ "& > :not(style)": { m: 1 } }}>
-        <Fab color="secondary" aria-label="edit">
-          <EditIcon />
-        </Fab>
-      </Box>
     </Box>
   );
 };
