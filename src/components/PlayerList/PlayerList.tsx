@@ -6,16 +6,24 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
-import { IPlayerToAdd as IPlayer } from "../AddPlayerDialog/AddPlayerDialog";
+import { IPlayerToAdd as IPlayer } from "../PlayerDialog/PlayerDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
-import { removePlayer } from "../../actions";
+import { setCurrentPlayerId, removePlayer } from "../../actions";
 
-export const TeamList = () => {
-  const players = useSelector((state: any) => state.addPlayer);
-  const [currentPlayerId, setCurrentPlayerId] = useState<number>(
-    players.length
+interface IState {
+  addPlayer: IPlayer[];
+  currentStates: {
+    currentId: number;
+  };
+}
+
+export const PlayerList = () => {
+  const players = useSelector((state: IState) => state.addPlayer);
+  const selectPlayerId = useSelector(
+    (state: IState) => state.currentStates.currentId
   );
+
   const dispatch = useDispatch();
 
   const handleDelete = (id: number) => {
@@ -26,8 +34,8 @@ export const TeamList = () => {
     <List sx={{ width: "100%", display: "flex" }}>
       {players.map((player: IPlayer) => (
         <ListItem
-          selected={player.id === currentPlayerId}
-          onClick={() => setCurrentPlayerId(player.id)}
+          selected={player.id === selectPlayerId}
+          onClick={() => dispatch(setCurrentPlayerId(player.id))}
           key={player.id}
           sx={{ cursor: "pointer" }}
           alignItems="flex-start"

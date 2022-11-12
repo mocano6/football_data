@@ -28,18 +28,18 @@ export interface IPlayerToAdd {
 // Add new player button + popup -done
 // Players have 3 properties - position GK/no (bool), number, name - done
 // Add players to global state - done
-// Add remove players
-// Check id issue
+// Add remove players - done
+// Check id issue - done
+// Add edit player - in progress
 // Move users to firebase
 
-export const AddPlayerDialog = () => {
+export const PlayerDialog = () => {
   const players = useSelector((state: any) => state.addPlayer);
   const [open, setOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [number, setNumber] = useState<number>(0);
   const [isGoalkeeper, setIsGoalkeeper] = useState<boolean>(false);
 
-  const [id] = useState<number>(players.length + 1);
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
@@ -52,7 +52,7 @@ export const AddPlayerDialog = () => {
 
   const addPlayer = () => {
     const newPlayer = {
-      id,
+      id: number,
       name,
       number,
       isGoalkeeper,

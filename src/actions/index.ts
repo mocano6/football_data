@@ -1,4 +1,4 @@
-import { IPlayerToAdd } from "../components/AddPlayerDialog/AddPlayerDialog";
+import { IPlayerToAdd } from "../components/PlayerDialog/PlayerDialog";
 
 export const addNewPlayer = (player: IPlayerToAdd) => {
   return {
@@ -12,33 +12,9 @@ export const removePlayer = (id: number) => {
     payload: id,
   };
 };
-
-// const actualPlayers = {
-//   playerToAdd: playerToAdd,
-// };
-// const reducer = (
-//   state = actualPlayers,
-//   action: { type: string; playerToAdd: IPlayerToAdd[] }
-// ) => {
-//   switch (action.type) {
-//     case ADD_PLAYER:
-//       return {
-//         ...state,
-//         playerToAdd: playerToAdd,
-//       };
-
-//     default:
-//       return state;
-//   }
-// };
-
-// const store = createStore(reducer);
-// console.log("Initial state", store.getState());
-
-// const unsubscribe = store.subscribe(() =>
-//   console.log("state", store.getState())
-// );
-
-// store.dispatch(addNewPlayer());
-
-// unsubscribe();
+export const setCurrentPlayerId = (id: number) => {
+  return {
+    type: "SET_ID",
+    payload: id,
+  };
+};
