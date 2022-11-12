@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import AddIcon from "@mui/icons-material/Add";
-import { Box, Fab } from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
+import {
+  Switch,
+  FormControlLabel,
+  Box,
+  Fab,
+  DialogTitle,
+  DialogContentText,
+  DialogContent,
+  DialogActions,
+  Dialog,
+  TextField,
+  Button,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { createStore } from "redux";
+import AddIcon from "@mui/icons-material/Add";
+import { useDispatch } from "react-redux";
+import { addNewPlayer } from "../../actions";
+import { useSelector } from "react-redux";
 
 export interface IPlayerToAdd {
   id: number;
@@ -22,92 +27,38 @@ export interface IPlayerToAdd {
 
 // Add new player button + popup -done
 // Players have 3 properties - position GK/no (bool), number, name - done
-// Add users to global state - in progress
+// Add players to global state - done
+// Add remove players
+// Check id issue
 // Move users to firebase
 
 export const AddPlayerDialog = () => {
+  const players = useSelector((state: any) => state.addPlayer);
   const [open, setOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [number, setNumber] = useState<number>(0);
   const [isGoalkeeper, setIsGoalkeeper] = useState<boolean>(false);
-  const [playerToAdd, setPlayerToAdd] = useState<[IPlayerToAdd]>([
-    {
-      id: 1,
-      name: "Ryan Matthew",
-      number: 33,
-      isGoalkeeper: true,
-    },
-  ]);
-  const [id] = useState<number>(playerToAdd.length + 1);
 
-  const ADD_PLAYER = "ADD_PLAYER";
-
-  const addNewPlayer = () => {
-    return {
-      type: ADD_PLAYER,
-      playerToAdd,
-    };
-  };
-
-  const actualPlayers = {
-    playerToAdd: playerToAdd,
-  };
-  const reducer = (
-    state = actualPlayers,
-    action: { type: string; playerToAdd: IPlayerToAdd[] }
-  ) => {
-    switch (action.type) {
-      case ADD_PLAYER:
-        return {
-          ...state,
-          playerToAdd: playerToAdd,
-        };
-
-      default:
-        return state;
-    }
-  };
-
-  const store = createStore(reducer);
-  console.log("Initial state", store.getState());
-
-  const unsubscribe = store.subscribe(() =>
-    console.log("state", store.getState())
-  );
-
-  store.dispatch(addNewPlayer());
-
-  unsubscribe();
+  const [id] = useState<number>(players.length + 1);
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   useEffect(() => {
-    console.log(playerToAdd);
-  }, [playerToAdd]);
-  useEffect(() => {
-    checkNumberRepetition();
+    checkNumberDuplicate();
   });
 
   const addPlayer = () => {
-    if (playerToAdd) {
-      playerToAdd.push({
-        id,
-        name,
-        number,
-        isGoalkeeper,
-      });
-    } else {
-      setPlayerToAdd([
-        {
-          id,
-          name,
-          number,
-          isGoalkeeper,
-        },
-      ]);
-    }
+    const newPlayer = {
+      id,
+      name,
+      number,
+      isGoalkeeper,
+    };
+    dispatch(addNewPlayer(newPlayer));
+
     setOpen(false);
     setNumber(0);
     setName("");
@@ -121,8 +72,8 @@ export const AddPlayerDialog = () => {
     setIsGoalkeeper(event.target.checked);
   };
 
-  const checkNumberRepetition = () => {
-    const isThere = playerToAdd.some((e) => e.number === number);
+  const checkNumberDuplicate = () => {
+    const isThere = players.some((e: IPlayerToAdd) => e.number === number);
     return isThere;
   };
 
@@ -165,28 +116,24 @@ export const AddPlayerDialog = () => {
             onChange={(e) =>
               setTimeout(() => {
                 setName(e.target.value);
-              }, 1000)
+              }, 500)
             }
           />
           <TextField
             autoFocus
-            error={checkNumberRepetition()}
+            error={checkNumberDuplicate()}
             type="number"
             inputProps={{ maxLength: 2 }}
             margin="dense"
             id="number"
             label={
-              checkNumberRepetition()
+              checkNumberDuplicate()
                 ? "Number was assigned to other player"
                 : "Number"
             }
             fullWidth
             variant="standard"
-            onChange={(e) =>
-              setTimeout(() => {
-                setNumber(Number(e.target.value));
-              }, 1000)
-            }
+            onChange={(e) => setNumber(Number(e.target.value))}
           />
           <FormControlLabel
             control={
@@ -197,7 +144,7 @@ export const AddPlayerDialog = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={addPlayer} disabled={checkNumberRepetition()}>
+          <Button onClick={addPlayer} disabled={checkNumberDuplicate()}>
             Add player
           </Button>
         </DialogActions>
