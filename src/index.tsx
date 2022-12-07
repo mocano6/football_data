@@ -1,14 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createStore } from "redux";
-import { allReducers } from "./reducers";
-import { devToolsEnhancer } from "@redux-devtools/extension";
-import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from 'react-redux';
+import playerReducer from "./store";
 
-const store = createStore(allReducers, devToolsEnhancer());
+const store = configureStore({
+  reducer: {
+    players: playerReducer
+  }
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

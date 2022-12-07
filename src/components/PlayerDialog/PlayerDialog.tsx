@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Switch,
   FormControlLabel,
@@ -15,11 +15,10 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch } from "react-redux";
-import { addNewPlayer } from "../../actions";
 import { useSelector } from "react-redux";
+import { addPlayer as addPlayerStore } from "../../store";
 
 export interface IPlayerToAdd {
-  id: number;
   name: string;
   number: number;
   isGoalkeeper: boolean;
@@ -31,49 +30,49 @@ export interface IPlayerToAdd {
 // Add remove players - done
 // Check id issue - done
 // Add edit player - in progress
-// Move users to firebase
+// Move users to firebase.
 
 export const PlayerDialog = () => {
-  const players = useSelector((state: any) => state.addPlayer);
+  const players = useSelector((state: any)=> state.players);
   const [open, setOpen] = useState<boolean>(false);
-  const [name, setName] = useState<string>("");
-  const [number, setNumber] = useState<number>(0);
-  const [isGoalkeeper, setIsGoalkeeper] = useState<boolean>(false);
-
-  const dispatch = useDispatch();
+  const [player, setPlayer] = useState<IPlayerToAdd>({
+    name: '',
+    number: 0,
+    isGoalkeeper: false,
+  });
+  const dispatch = useDispatch<any>();
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  useEffect(() => {
-    checkNumberDuplicate();
-  });
-
   const addPlayer = () => {
-    const newPlayer = {
-      id: number,
-      name,
-      number,
-      isGoalkeeper,
-    };
-    dispatch(addNewPlayer(newPlayer));
-
+    dispatch(addPlayerStore(player));
+    setPlayer({
+      name: '',
+      number: 0,
+      isGoalkeeper: false,
+    })
+  };
+  const addPlayerSave = () => {
+    dispatch(addPlayerStore(player));
+    setPlayer({
+      name: '',
+      number: 0,
+      isGoalkeeper: false,
+    })
     setOpen(false);
-    setNumber(0);
-    setName("");
-    setIsGoalkeeper(false);
   };
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleIsGoalkeeper = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsGoalkeeper(event.target.checked);
+    setPlayer({ ...player, [event.target.name]: event.target.value });
   };
 
   const checkNumberDuplicate = () => {
-    const isThere = players.some((e: IPlayerToAdd) => e.number === number);
+    const isThere = players.some((e: IPlayerToAdd) => e.number === player.number);
     return isThere;
   };
 
@@ -106,46 +105,58 @@ export const PlayerDialog = () => {
           </DialogContentText>
           <TextField
             autoFocus
+            value={player.name}
             margin="dense"
             id="name"
+            name="name"
             label="Full Name"
             type="text"
             fullWidth
             variant="standard"
             inputProps={{ maxLength: 40 }}
             onChange={(e) =>
-              setTimeout(() => {
-                setName(e.target.value);
-              }, 500)
+              setPlayer({ ...player, [e.target.name]: e.target.value })
             }
           />
           <TextField
             autoFocus
             error={checkNumberDuplicate()}
             type="number"
+            value={player.number}
+            name="number"
             inputProps={{ maxLength: 2 }}
             margin="dense"
             id="number"
             label={
-              checkNumberDuplicate()
+               checkNumberDuplicate()
                 ? "Number was assigned to other player"
                 : "Number"
             }
             fullWidth
             variant="standard"
-            onChange={(e) => setNumber(Number(e.target.value))}
+            onChange={(e) => setPlayer({ ...player, [e.target.name]: Number(e.target.value) })}
           />
           <FormControlLabel
             control={
-              <Switch checked={isGoalkeeper} onChange={handleIsGoalkeeper} />
+              <Switch 
+              value={player.isGoalkeeper} checked={player.isGoalkeeper} onChange={handleIsGoalkeeper} />
             }
             label="Is Goalkeeper"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={addPlayer} disabled={checkNumberDuplicate()}>
-            Add player
+          <Button
+            onClick={addPlayer}
+            disabled={checkNumberDuplicate()}
+          >
+            Add next player
+          </Button>
+          <Button
+            onClick={addPlayerSave}
+            disabled={checkNumberDuplicate()}
+          >
+            Save
           </Button>
         </DialogActions>
       </Dialog>

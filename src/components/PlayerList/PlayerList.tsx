@@ -1,42 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { useSelector } from "react-redux";
 import { IPlayerToAdd as IPlayer } from "../PlayerDialog/PlayerDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDispatch } from "react-redux";
-import { setCurrentPlayerId, removePlayer } from "../../actions";
-
-interface IState {
-  addPlayer: IPlayer[];
-  currentStates: {
-    currentId: number;
-  };
-}
+import { useSelector, useDispatch } from "react-redux";
+import { deletePlayer } from "../../store";
 
 export const PlayerList = () => {
-  const players = useSelector((state: IState) => state.addPlayer);
-  const selectPlayerId = useSelector(
-    (state: IState) => state.currentStates.currentId
-  );
+  const players = useSelector((state: any)=> state.players);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   const handleDelete = (id: number) => {
-    dispatch(removePlayer(id));
+    dispatch(deletePlayer(id))
   };
 
   return (
-    <List sx={{ width: "100%", display: "flex" }}>
+    <List sx={{ width: "100%", display: "flex", gap: '5px' }}>
       {players.map((player: IPlayer) => (
         <ListItem
-          selected={player.id === selectPlayerId}
-          onClick={() => dispatch(setCurrentPlayerId(player.id))}
-          key={player.id}
+          selected={true}
+          key={player.number}
           sx={{ cursor: "pointer" }}
           alignItems="flex-start"
         >
@@ -66,7 +54,7 @@ export const PlayerList = () => {
           />
           <DeleteIcon
             sx={{ margin: "auto 1rem auto auto", color: "grey" }}
-            onClick={() => handleDelete(player.id)}
+            onClick={() => handleDelete(player.number)}
           />
         </ListItem>
       ))}
