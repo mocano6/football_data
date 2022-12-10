@@ -1,13 +1,12 @@
-import React from "react";
 import { Box } from "@mui/material";
 import { PlayerList } from "../../components/PlayerList/PlayerList";
-import { PlayerDialog } from "../../components/PlayerDialog/PlayerDialog";
+import { PlayerContentManagement } from "../../components/PlayerContentManagement/PlayerContentManagement";
 
 export const Team = () => {
   return (
     <Box>
       <PlayerList />
-      <PlayerDialog />
+      <PlayerContentManagement />
     </Box>
   );
 };
