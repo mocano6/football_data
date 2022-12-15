@@ -41,7 +41,7 @@ export const PlayerContentManagement = () => {
           <AddIcon />
         </Fab>
       </Box>
-      <PlayerDialog/>
+      <PlayerDialog open={open} setOpen={setOpen}/>
     </div>
   );
 };

@@ -19,9 +19,8 @@ export interface IPlayerToAdd {
     isGoalkeeper: boolean;
   }
 
-export const PlayerDialog = ()=> {
+export const PlayerDialog = ({open, setOpen}: any)=> {
     const players = useSelector((state: any)=> state.players);
-    const [open, setOpen] = useState<boolean>(false);
     const [player, setPlayer] = useState<IPlayerToAdd>({
       name: '',
       number: 0,
@@ -51,7 +50,11 @@ export const PlayerDialog = ()=> {
       };
     
       const handleIsGoalkeeper = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPlayer({ ...player, [event.target.name]: event.target.value });
+        if (event.target.value === 'true') {
+          setPlayer({ ...player, isGoalkeeper: false }); 
+        } else {
+          setPlayer({ ...player, isGoalkeeper: true }); 
+        }
       };
     
       const checkNumberDuplicate = () => {
@@ -103,7 +106,8 @@ export const PlayerDialog = ()=> {
         />
         <FormControlLabel
           control={
-            <Switch 
+            <Switch
+            name="isGoalkeeper"
             value={player.isGoalkeeper} checked={player.isGoalkeeper} onChange={handleIsGoalkeeper} />
           }
           label="Is Goalkeeper"
