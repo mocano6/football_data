@@ -1,22 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const defaultState = [
-    {
-      name: 'Aaron Ramsdale',
-      number: 1,
-      isGoalkeeper: true
-    },
-    {
-      name: 'Matt Turner',
-      number: 32,
-      isGoalkeeper: true
-    },
-  ];
+  {
+    name: "Dawid Michałków",
+    number: 1,
+    isGoalkeeper: true,
+  },
+  {
+    name: "Sasha Kravets",
+    number: 12,
+    isGoalkeeper: true,
+  },
+  {
+    name: "Dziedzińskie Reed",
+    number: 2,
+    isGoalkeeper: false,
+  },
+];
 const slice = createSlice({
   name: "players",
   initialState: defaultState,
   reducers: {
-    addPlayer: (state:any, {payload}) => {
+    addPlayer: (state: any, { payload }) => {
       state.push(payload);
     },
     updatePlayer: (state, { payload }) => {
@@ -31,7 +36,8 @@ const slice = createSlice({
       });
     },
     deletePlayer: (state, { payload }) => {
-      state.splice(state.findIndex(({ number }) => number === payload), 1);      
+      return state.filter((item) => item.number !== payload);
+      // state.splice(state.findIndex(({ number }) => number === payload), 1);
     },
     removeAllPlayers: (state) => {
       state = [];

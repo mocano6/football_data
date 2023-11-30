@@ -92,7 +92,7 @@ export const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            Football data
+            Football data by Miedź
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
