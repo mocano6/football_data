@@ -20,10 +20,7 @@ export const Home = () => {
   const [reset, getReset] = useState<any>(1);
 
   useEffect(() => {
-    console.log(reset);
-    
     if (reset===0) {
-      console.log('asdfadsfasdf');
       setHalf1(clearHalf)
     }
   }, [reset])
@@ -55,7 +52,7 @@ export const Home = () => {
     <Box sx={{ width: '100%', marginTop: '10px', mouse: 'pointer' }}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} item xs={12}>
-        <Timer half={half} getTime={(newTime: any) => getTime(newTime)} getReset={(isReset: any) => getReset(isReset)}/>
+          <Timer half={half} getTime={(newTime: any) => getTime(newTime)} getReset={(isReset: any) => getReset(isReset)}/>
         </Grid>
         <Grid item xs={12}>
           <Item  onClick={() => setHalf((prevHalf) => (prevHalf === 1 ? 2 : 1))}>
@@ -63,12 +60,12 @@ export const Home = () => {
           </Item>
         </Grid>
         <Grid sx={{display: 'flex'}} item xs={6}>
-          <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, possessionTeam: prevHalf1.possessionTeam = 1}))}>
+          <Item sx={half1.possessionTeam === 1 ? {background: '#0074BD', color: 'white'} : null} onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, possessionTeam: prevHalf1.possessionTeam = 1}))}>
             Possession Miedź ({changeToPercentage(Number(half1.possession1/(half1.possession1 + half1.possession2)))}%)
           </Item>
         </Grid>
         <Grid sx={{display: 'flex'}} item xs={6}>
-          <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, possessionTeam: prevHalf1.possessionTeam = 2}))}>
+          <Item sx={half1.possessionTeam === 2 ? {background: '#0074BD', color: 'white'} : null} onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, possessionTeam: prevHalf1.possessionTeam = 2}))}>
             Possession Opponent ({changeToPercentage(Number(half1.possession2/(half1.possession1 + half1.possession2)))}%)
           </Item>
         </Grid>
