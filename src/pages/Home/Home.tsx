@@ -54,51 +54,51 @@ export const Home = () => {
   return (
     <Box sx={{ width: '100%', marginTop: '10px', mouse: 'pointer' }}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} item xs={8}>
+        <Grid sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}} item xs={12}>
         <Timer half={half} getTime={(newTime: any) => getTime(newTime)} getReset={(isReset: any) => getReset(isReset)}/>
         </Grid>
-        <Grid item xs={4}>
-          <Item onClick={() => setHalf((prevHalf) => (prevHalf === 1 ? 2 : 1))}>
+        <Grid item xs={12}>
+          <Item  onClick={() => setHalf((prevHalf) => (prevHalf === 1 ? 2 : 1))}>
             {half} Half
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, possessionTeam: prevHalf1.possessionTeam = 1}))}>
             Possession Miedź ({changeToPercentage(Number(half1.possession1/(half1.possession1 + half1.possession2)))}%)
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, possessionTeam: prevHalf1.possessionTeam = 2}))}>
             Possession Opponent ({changeToPercentage(Number(half1.possession2/(half1.possession1 + half1.possession2)))}%)
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, pass1: prevHalf1.pass1 + 1 }))}>
             Pass Miedź ({half1.pass1}) ({changeToPercentage(Number(half1.pass1/(half1.pass1 + half1.badPass1)))}%)</Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, pass2: prevHalf1.pass2 + 1 }))}>
             Pass Opponent ({half1.pass2})({changeToPercentage(Number(half1.pass2/(half1.pass2 + half1.badPass2)))}%)</Item>
 
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, badPass1: prevHalf1.badPass1 + 1 }))}>
             Pass bad Miedź ({half1.badPass1})</Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, badPass2: prevHalf1.badPass2 + 1 }))}>
             Pass bad Opponent ({half1.badPass2})</Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, Tilt1: prevHalf1.Tilt1 + 1 }))}>Pass Opp. Half Miedź ({half1.Tilt1}) ({changeToPercentage(Number(half1.Tilt1/(half1.Tilt1 + half1.Tilt2)))}%)</Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, Tilt2: prevHalf1.Tilt2 + 1 }))}>Pass Opp. Half Opponent ({half1.Tilt2}) ({changeToPercentage(Number(half1.Tilt2/(half1.Tilt1 + half1.Tilt2)))}%)</Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, Rec1: prevHalf1.Rec1 + 1 }))}>5 sec Regain Miedź({half1.Rec1})</Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid sx={{display: 'flex'}} item xs={6}>
           <Item onClick={()=>setHalf1((prevHalf1) => ({ ...prevHalf1, Rec2: prevHalf1.Rec2 + 1 }))}>
             5 sec Regain Opponent ({half1.Rec2})</Item>
         </Grid>
