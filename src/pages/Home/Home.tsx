@@ -89,7 +89,7 @@ export const Home = () => {
       key: "possession1",
       style: {},
       innerElement: "",
-      text: `Possession (${changeToPercentage(
+      text: `Ball (${changeToPercentage(
         Number(half1.possession1 / (half1.possession1 + half1.possession2))
       )}%)`,
       onClick: () =>
@@ -104,7 +104,7 @@ export const Home = () => {
       key: "possession2",
       style: {},
       innerElement: "",
-      text: `Possession (${changeToPercentage(
+      text: `Ball (${changeToPercentage(
         Number(half1.possession2 / (half1.possession1 + half1.possession2))
       )}%)`,
       onClick: () =>
@@ -138,11 +138,11 @@ export const Home = () => {
       key: "tilt1",
       style: {},
       innerElement: "",
-      text: `Tilt Pass (${half1.Tilt1}) (
-            ${changeToPercentage(
-              Number(half1.Tilt1 / (half1.Tilt1 + half1.Tilt2))
-            )}
-            %)`,
+      text: `Tilt
+      \n(${half1.Tilt1})
+      \n(${changeToPercentage(
+        Number(half1.Tilt1 / (half1.Tilt1 + half1.Tilt2))
+      )}%)`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
@@ -187,11 +187,11 @@ export const Home = () => {
       key: "tilt2",
       style: {},
       innerElement: "",
-      text: `Tilt Pass (${half1.Tilt2}) (
-            ${changeToPercentage(
-              Number(half1.Tilt2 / (half1.Tilt1 + half1.Tilt2))
-            )}
-            %)`,
+      text: `Tilt
+      \n(${half1.Tilt2})
+      \n(${changeToPercentage(
+        Number(half1.Tilt2 / (half1.Tilt1 + half1.Tilt2))
+      )}%)`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,

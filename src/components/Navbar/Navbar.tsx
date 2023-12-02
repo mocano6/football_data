@@ -127,10 +127,6 @@ export const Navbar = () => {
               {navLinks("typography")}
             </Menu>
           </Box>
-          <SportsSoccerIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
-          />
-          <EqualizerIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -147,7 +143,7 @@ export const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            ML Academy
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navLinks()}
@@ -156,7 +152,10 @@ export const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="Miedź Legnica Logo"
+                  src="https://tmssl.akamaized.net/images/wappen/head/1611.png?lm=1445524970"
+                />
               </IconButton>
             </Tooltip>
             <Menu
