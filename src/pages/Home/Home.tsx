@@ -68,36 +68,6 @@ export const Home = () => {
       variant: "outlined",
     },
     {
-      key: "possession1",
-      style: {},
-      innerElement: "",
-      text: `Possession 1 (${changeToPercentage(
-        Number(half1.possession1 / (half1.possession1 + half1.possession2))
-      )}%)`,
-      onClick: () =>
-        setHalf1((prevHalf1) => ({
-          ...prevHalf1,
-          possessionTeam: (prevHalf1.possessionTeam = 1),
-        })),
-      gridXS: 6,
-      variant: half1.possessionTeam === 1 ? "contained" : "outlined",
-    },
-    {
-      key: "possession2",
-      style: {},
-      innerElement: "",
-      text: `Possession 2 (${changeToPercentage(
-        Number(half1.possession2 / (half1.possession1 + half1.possession2))
-      )}%)`,
-      onClick: () =>
-        setHalf1((prevHalf1) => ({
-          ...prevHalf1,
-          possessionTeam: (prevHalf1.possessionTeam = 2),
-        })),
-      gridXS: 6,
-      variant: half1.possessionTeam === 2 ? "contained" : "outlined",
-    },
-    {
       key: "pass1",
       style: {},
       innerElement: "",
@@ -116,20 +86,34 @@ export const Home = () => {
       color: "success",
     },
     {
-      key: "passBad1",
+      key: "possession1",
       style: {},
       innerElement: "",
-      text: `
-      Bad
-      \n(${half1.badPass1})`,
+      text: `Possession (${changeToPercentage(
+        Number(half1.possession1 / (half1.possession1 + half1.possession2))
+      )}%)`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
-          badPass1: prevHalf1.badPass1 + 1,
+          possessionTeam: (prevHalf1.possessionTeam = 1),
         })),
       gridXS: 3,
-      variant: "contained",
-      color: "error",
+      variant: half1.possessionTeam === 1 ? "contained" : "outlined",
+    },
+    {
+      key: "possession2",
+      style: {},
+      innerElement: "",
+      text: `Possession (${changeToPercentage(
+        Number(half1.possession2 / (half1.possession1 + half1.possession2))
+      )}%)`,
+      onClick: () =>
+        setHalf1((prevHalf1) => ({
+          ...prevHalf1,
+          possessionTeam: (prevHalf1.possessionTeam = 2),
+        })),
+      gridXS: 3,
+      variant: half1.possessionTeam === 2 ? "contained" : "outlined",
     },
     {
       key: "pass2",
@@ -151,20 +135,6 @@ export const Home = () => {
       color: "success",
     },
     {
-      key: "passBad2",
-      style: {},
-      innerElement: "",
-      text: `Bad 2 (${half1.badPass2})`,
-      onClick: () =>
-        setHalf1((prevHalf1) => ({
-          ...prevHalf1,
-          badPass2: prevHalf1.badPass2 + 1,
-        })),
-      gridXS: 3,
-      variant: "contained",
-      color: "error",
-    },
-    {
       key: "tilt1",
       style: {},
       innerElement: "",
@@ -179,9 +149,39 @@ export const Home = () => {
           Tilt1: prevHalf1.Tilt1 + 1,
           pass1: prevHalf1.pass1 + 1,
         })),
-      gridXS: 6,
+      gridXS: 3,
       variant: "contained",
       color: "success",
+    },
+    {
+      key: "passBad1",
+      style: {},
+      innerElement: "",
+      text: `
+      Bad
+      \n(${half1.badPass1})`,
+      onClick: () =>
+        setHalf1((prevHalf1) => ({
+          ...prevHalf1,
+          badPass1: prevHalf1.badPass1 + 1,
+        })),
+      gridXS: 3,
+      variant: "contained",
+      color: "error",
+    },
+    {
+      key: "passBad2",
+      style: {},
+      innerElement: "",
+      text: `Bad (${half1.badPass2})`,
+      onClick: () =>
+        setHalf1((prevHalf1) => ({
+          ...prevHalf1,
+          badPass2: prevHalf1.badPass2 + 1,
+        })),
+      gridXS: 3,
+      variant: "contained",
+      color: "error",
     },
     {
       key: "tilt2",
@@ -198,7 +198,7 @@ export const Home = () => {
           Tilt2: prevHalf1.Tilt2 + 1,
           pass2: prevHalf1.pass2 + 1,
         })),
-      gridXS: 6,
+      gridXS: 3,
       variant: "contained",
       color: "success",
     },
@@ -249,6 +249,12 @@ export const Home = () => {
             getTime={(newTime: any) => getTime(newTime)}
             getReset={(isReset: any) => getReset(isReset)}
           />
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={6}>
+          <Button>Miedź</Button>
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={6}>
+          <Button>Opponent</Button>
         </Grid>
         {buttons.map((btn) => (
           <Grid item xs={btn.gridXS as GridSize} key={btn.key}>
