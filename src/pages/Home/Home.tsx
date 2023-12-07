@@ -55,27 +55,24 @@ export const Home = () => {
     Rec2: 0,
   };
   const [half1, setHalf1] = useState(clearHalf);
-  const [half2, setHalf2] = useState(clearHalf);
+  // const [half2, setHalf2] = useState(clearHalf);
 
   const buttons = [
-    {
-      key: "half",
-      style: {},
-      innerElement: "",
-      text: half + " Half",
-      onClick: () => setHalf((prevHalf) => (prevHalf === 1 ? 2 : 1)),
-      gridXS: 12,
-      variant: "outlined",
-    },
+    // {
+    //   key: "half",
+    //   style: {},
+    //   innerElement: "",
+    //   text: half + " Half",
+    //   onClick: () => setHalf((prevHalf) => (prevHalf === 1 ? 2 : 1)),
+    //   gridXS: 12,
+    //   variant: "outlined",
+    // },
     {
       key: "pass1",
       style: {},
       innerElement: "",
       text: `
-      Pass (${half1.pass1})
-      \n(${changeToPercentage(
-        Number(half1.pass1 / (half1.pass1 + half1.badPass1))
-      )}%)`,
+      Pass (${half1.pass1})`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
@@ -89,9 +86,7 @@ export const Home = () => {
       key: "possession1",
       style: {},
       innerElement: "",
-      text: `Ball (${changeToPercentage(
-        Number(half1.possession1 / (half1.possession1 + half1.possession2))
-      )}%)`,
+      text: `Ball`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
@@ -104,9 +99,7 @@ export const Home = () => {
       key: "possession2",
       style: {},
       innerElement: "",
-      text: `Ball (${changeToPercentage(
-        Number(half1.possession2 / (half1.possession1 + half1.possession2))
-      )}%)`,
+      text: `Ball`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
@@ -119,12 +112,7 @@ export const Home = () => {
       key: "pass2",
       style: {},
       innerElement: "",
-      text: `
-      Pass
-      \n(${half1.pass2})
-      \n(${changeToPercentage(
-        Number(half1.pass2 / (half1.pass2 + half1.badPass2))
-      )}%)`,
+      text: `Pass(${half1.pass2})`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
@@ -138,16 +126,11 @@ export const Home = () => {
       key: "tilt1",
       style: {},
       innerElement: "",
-      text: `Tilt
-      \n(${half1.Tilt1})
-      \n(${changeToPercentage(
-        Number(half1.Tilt1 / (half1.Tilt1 + half1.Tilt2))
-      )}%)`,
+      text: `Tilt (${half1.Tilt1})`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
           Tilt1: prevHalf1.Tilt1 + 1,
-          pass1: prevHalf1.pass1 + 1,
         })),
       gridXS: 3,
       variant: "contained",
@@ -187,16 +170,11 @@ export const Home = () => {
       key: "tilt2",
       style: {},
       innerElement: "",
-      text: `Tilt
-      \n(${half1.Tilt2})
-      \n(${changeToPercentage(
-        Number(half1.Tilt2 / (half1.Tilt1 + half1.Tilt2))
-      )}%)`,
+      text: `Tilt(${half1.Tilt2})`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
           Tilt2: prevHalf1.Tilt2 + 1,
-          pass2: prevHalf1.pass2 + 1,
         })),
       gridXS: 3,
       variant: "contained",
@@ -206,7 +184,7 @@ export const Home = () => {
       key: "5sReg1",
       style: {},
       innerElement: "",
-      text: `5s Reg (${half1.Rec1})`,
+      text: `5s Reg(${half1.Rec1})`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
@@ -214,13 +192,12 @@ export const Home = () => {
         })),
       gridXS: 6,
       variant: "outlined",
-      color: "secondary",
     },
     {
       key: "5sReg2",
       style: {},
       innerElement: "",
-      text: `5s Reg (${half1.Rec2})`,
+      text: `5s Reg(${half1.Rec2})`,
       onClick: () =>
         setHalf1((prevHalf1) => ({
           ...prevHalf1,
@@ -228,7 +205,6 @@ export const Home = () => {
         })),
       gridXS: 6,
       variant: "outlined",
-      color: "secondary",
     },
   ];
 
@@ -250,12 +226,6 @@ export const Home = () => {
             getReset={(isReset: any) => getReset(isReset)}
           />
         </Grid>
-        <Grid sx={{ textAlign: "center" }} item xs={6}>
-          <Button>Miedź</Button>
-        </Grid>
-        <Grid sx={{ textAlign: "center" }} item xs={6}>
-          <Button>Opponent</Button>
-        </Grid>
         {buttons.map((btn) => (
           <Grid item xs={btn.gridXS as GridSize} key={btn.key}>
             <Button
@@ -271,6 +241,77 @@ export const Home = () => {
             </Button>
           </Grid>
         ))}
+      </Grid>
+      <Grid container spacing={3} sx={{ marginTop: 2 }}>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {changeToPercentage(
+            Number(half1.possession1 / (half1.possession1 + half1.possession2))
+          )}
+          %
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={8}>
+          Posiadanie
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {changeToPercentage(
+            Number(half1.possession2 / (half1.possession1 + half1.possession2))
+          )}
+          %
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {half1.pass1 + half1.Tilt1 + half1.badPass1}
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={8}>
+          Podania
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {half1.pass2 + half1.Tilt2 + half1.badPass2}
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {changeToPercentage(
+            Number(
+              (half1.pass1 + half1.Tilt1) /
+                (half1.pass1 + half1.Tilt1 + half1.badPass1)
+            )
+          )}
+          %
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={8}>
+          Podania celne
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {changeToPercentage(
+            Number(
+              (half1.pass2 + half1.Tilt2) /
+                (half1.pass2 + half1.Tilt2 + half1.badPass2)
+            )
+          )}
+          %
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {changeToPercentage(
+            Number(half1.Tilt1 / (half1.Tilt1 + half1.Tilt2))
+          )}
+          %
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={8}>
+          Przewaga przestrzeni
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {changeToPercentage(
+            Number(half1.Tilt2 / (half1.Tilt1 + half1.Tilt2))
+          )}
+          %
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {half1.Rec1}
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={8}>
+          5s odbiór
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={2}>
+          {half1.Rec2}
+        </Grid>
       </Grid>
     </Box>
   );
