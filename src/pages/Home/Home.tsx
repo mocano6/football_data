@@ -39,12 +39,19 @@ export const Home = () => {
         ...prevHalf1,
         possession2: prevHalf1.possession2 + 1,
       }));
+    } else if (half1.possessionTeam === 3) {
+      setHalf1((prevHalf1) => ({
+        ...prevHalf1,
+        possessionX: prevHalf1.possessionX + 1,
+      }));
     }
   }, [time]);
+
   const clearHalf = {
     possessionTeam: 0,
     possession1: 0,
     possession2: 0,
+    possessionX: 0,
     pass1: 0,
     pass2: 0,
     badPass1: 0,
@@ -92,8 +99,21 @@ export const Home = () => {
           ...prevHalf1,
           possessionTeam: (prevHalf1.possessionTeam = 1),
         })),
-      gridXS: 3,
+      gridXS: 2,
       variant: half1.possessionTeam === 1 ? "contained" : "outlined",
+    },
+    {
+      key: "possessionX",
+      style: {},
+      innerElement: "",
+      text: `X`,
+      onClick: () =>
+        setHalf1((prevHalf1) => ({
+          ...prevHalf1,
+          possessionTeam: (prevHalf1.possessionTeam = 3),
+        })),
+      gridXS: 2,
+      variant: half1.possessionTeam === 3 ? "contained" : "outlined",
     },
     {
       key: "possession2",
@@ -105,7 +125,7 @@ export const Home = () => {
           ...prevHalf1,
           possessionTeam: (prevHalf1.possessionTeam = 2),
         })),
-      gridXS: 3,
+      gridXS: 2,
       variant: half1.possessionTeam === 2 ? "contained" : "outlined",
     },
     {
@@ -311,6 +331,16 @@ export const Home = () => {
         </Grid>
         <Grid sx={{ textAlign: "center" }} item xs={2}>
           {half1.Rec2}
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} item xs={12}>
+          Czas martwy:{" "}
+          {changeToPercentage(
+            Number(
+              half1.possessionX /
+                (half1.possession1 + half1.possession2 + half1.possessionX)
+            )
+          )}
+          %
         </Grid>
       </Grid>
     </Box>
