@@ -19,14 +19,30 @@ export const Home = () => {
   const changeToPercentage = (number: number) => (number * 100).toFixed(0);
 
   const [half, setHalf] = useState(1);
-  const [time, getTime] = useState<number>(0);
   const [reset, getReset] = useState<any>(1);
+  const [time, setTime] = useState(0);
+  const [running, getRunning] = useState<boolean>(false);
 
   useEffect(() => {
     if (reset === 0) {
       setHalf1(clearHalf);
     }
   }, [reset]);
+
+  useEffect(() => {
+    let interval: any;
+    if (running) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 1000);
+        if (setTime) {
+          setTime(time + 1000);
+        }
+      }, 1000);
+    } else if (!running) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [running, setTime, time]);
 
   useEffect(() => {
     if (half1.possessionTeam === 1) {
@@ -242,8 +258,11 @@ export const Home = () => {
         >
           <Timer
             half={half}
-            getTime={(newTime: any) => getTime(newTime)}
+            getTime={(newTime: any) => setTime(newTime)}
             getReset={(isReset: any) => getReset(isReset)}
+            getRunning={(isRunning: any) => getRunning(isRunning)}
+            running={running}
+            time={time}
           />
         </Grid>
         {buttons.map((btn) => (

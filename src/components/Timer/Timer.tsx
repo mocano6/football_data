@@ -5,36 +5,25 @@ export const Timer = ({
   half,
   getTime,
   getReset,
+  getRunning,
+  running,
+  time,
 }: {
   half: any;
   getTime?: any;
   getReset?: any;
+  getRunning?: any;
+  running?: boolean;
+  time: number;
 }) => {
-  const [time, setTime] = useState(0);
-
-  const [running, setRunning] = useState(false);
   useEffect(() => {
     if (half === 1) {
-      setTime(time);
+      getTime(time);
     } else if (half === 2) {
-      setTime(time + 45 * 1000 * 60);
+      getTime(time + 45 * 1000 * 60);
     }
   }, [half]);
 
-  useEffect(() => {
-    let interval: any;
-    if (running) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1000);
-        if (getTime) {
-          getTime(time + 1000);
-        }
-      }, 1000);
-    } else if (!running) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [running, getTime, time]);
   return (
     <Box
       sx={{
@@ -60,7 +49,7 @@ export const Timer = ({
         size="large"
         variant="contained"
         color={running ? "error" : "success"}
-        onClick={() => (running ? setRunning(false) : setRunning(true))}
+        onClick={() => (running ? getRunning(false) : getRunning(true))}
         sx={{
           margin: 0.1,
         }}
@@ -76,9 +65,9 @@ export const Timer = ({
         color="secondary"
         onClick={() => {
           if (half === 2) {
-            setTime(45 * 1000 * 60);
+            getTime(45 * 1000 * 60);
           } else if (half === 1) {
-            setTime(0);
+            getTime(0);
           }
           getReset(0);
         }}
