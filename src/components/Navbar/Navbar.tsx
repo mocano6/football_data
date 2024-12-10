@@ -19,6 +19,8 @@ const pages = [
   { name: "Home", href: "/", id: 1 },
   { name: "Team", href: "/team", id: 2 },
   { name: "XG", href: "/expected_goals", id: 3 },
+  { name: "Box entries", href: "/box_entries", id: 4 },
+  { name: "Video", href: "/video_data", id: 5 },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -92,7 +94,7 @@ export const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            Football data by Miedź
+            Football data by Raków
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -153,8 +155,8 @@ export const Navbar = () => {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
-                  alt="Miedź Legnica Logo"
-                  src="https://tmssl.akamaized.net/images/wappen/head/1611.png?lm=1445524970"
+                  alt="Raków Logo"
+                  src="https://rakow.com/assets/images/soccer/RKS_herb.png"
                 />
               </IconButton>
             </Tooltip>

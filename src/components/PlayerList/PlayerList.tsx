@@ -11,23 +11,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { deletePlayer } from "../../store";
 
 export const PlayerList = () => {
-  const players = useSelector((state: any)=> state.players);
-  const [highlitedPlayer, setHighlitedPlayer] = useState(players[0].number)
+  const players = useSelector((state: any) => state.players);
+  const [highlitedPlayer, setHighlitedPlayer] = useState(players[0].number);
   const dispatch = useDispatch<any>();
 
   const handleDelete = (id: number) => {
-    dispatch(deletePlayer(id))
+    dispatch(deletePlayer(id));
   };
 
   return (
-    <List sx={{ width: "100%", display: "flex", gap: '5px' }}>
+    <List sx={{ width: "100%", display: "flex", gap: "5px" }}>
       {players.map((player: IPlayer) => (
         <ListItem
           selected={highlitedPlayer === player.number}
           key={player.number}
           sx={{ cursor: "pointer" }}
           alignItems="flex-start"
-          onClick={()=>setHighlitedPlayer(player.number)}
+          onClick={() => setHighlitedPlayer(player.number)}
         >
           <ListItemAvatar>
             <Avatar
